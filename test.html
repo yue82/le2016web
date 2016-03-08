@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta name="description" content="神戸大学情報知能工学科 2015年前期 言語工学 講義ページ">
+    <meta name="author" content="Takatori">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>言語工学 - 環境テスト(lex)</title>
+
+    <link href="style.css" rel="stylesheet">
+    <link href="le.css" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
+  </head>
+
+  <body>
+    <header>
+      <div class="container">
+	<h1>言語工学<br class="visible-xs"> -2016年度-</h1>
+	神戸大学 情報知能工学科 3年生前期<br>
+	日時 : 木曜2限<br>
+	場所 : LR501<br>
+	担当教員 : <a href="http://www.ai.cs.kobe-u.ac.jp/faculty/uehara/uehara-j.html">上原 邦昭</a><br>
+      </div>
+    </header>
+
+    <hr>
+    <div class="container">
+      <div class="row">
+	<div class="col-md-3">
+	  <div class="menu">
+	    <nav class="navbar navbar-default">
+	      <div class="navbar-header">
+		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#gnavi">
+		  <span class="sr-only">メニュー</span>
+		  <span class="icon-bar"></span>
+		  <span class="icon-bar"></span>
+		  <span class="icon-bar"></span>
+		</button>
+	      </div>
+	      <div id="gnavi" class="collapse navbar-collapse fix-sidebar">
+		<ul class="nav nav-pills nav-stacked" role="complementary">
+		  <li>
+		    <a href="./tool.html">必要なツール</a>
+		  </li>
+		  <li class="dropdown">
+		    <a class="dropdown-toggle" data-toggle="dropdown" href="#">環境構築 <span class="caret"></span></a>
+		    <ul class="dropdown-menu">
+		      <li><a href="./env.html#config_linux">Linux（Ubuntu）</a></li>
+		      <li><a href="./env.html#config_mac">Mac</a></li>
+		      <li><a href="./env.html#config_win">Windows</a></li>
+		    </ul>
+		  </li>
+		  <li class="dropdown">
+		    <a class="dropdown-toggle" data-toggle="dropdown" href="#">環境テスト <span class="caret"></span></a>
+		    <ul class="dropdown-menu">
+		      <li><a href="./test.html#test_lex">環境テスト（lex）</a></li>
+		      <li><a href="./test.html#test_yaccbison">環境テスト（yacc/bison）</a></li>
+		    </ul>
+		  </li>
+		  <li class="dropdown">
+		    <a class="dropdown-toggle" data-toggle="dropdown" href="#">レポート課題 <span class="caret"></span></a>
+		    <ul class="dropdown-menu">
+		      <li><a href="./submit.html">レポート提出要項</a></li>
+		      <li><a href="./report1.html">レポート課題1</a></li>
+		      <li><a href="./report2.html">レポート課題2</a></li>
+		    </ul>
+		  </li>
+		</ul>
+	      </div>
+	    </nav>
+	  </div>
+	</div>
+	
+	<div class="col-md-9">
+	  <div class="contents">
+	    <h3>3. 環境テスト</h3>
+
+	    <div id="test_lex">
+	      <!-- 環境テスト（lex） -->
+	      <h4>環境テスト(lex)</h4>
+	      <ol style="width:550px;">
+		<li>
+		  解析対象のファイルを作成します．<br>
+		  下記の内容を書いたファイルを「hello.c」という名前で保存してください．<br>
+		  <pre class="code" title="hello.c">if(a&lt;b){c=d;}</pre><br>
+		</li>
+		<li>
+		  flexのプログラムを作成します．<br>
+		  下記の内容を書いたファイルを「def.l」という名前で保存してください．<br>
+		  ※%マークの前にスペースがあるとエラーが起きるようです．<br>
+		  <pre class="code" title="def.l">
+%option noyywrap
+%{
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+%}
+
+%%
+[ \t\n]+                        {}
+&quot;if&quot;                            {
+       printf(&quot;IF &quot;);
+       }
+[a-zA-X_][a-zA-Z0-9]*           {
+       printf(&quot;IDENTIFIER &quot;);
+       }
+&quot;=&quot;                             {
+       printf(&quot;OPERATOR &quot;);
+       }
+&quot;&lt&quot;                             {
+       printf(&quot;OPERATOR &quot;);
+       }
+&quot;)&quot                             {
+       printf(&quot;RPAR &quot;);
+       }
+&quot;(&quot;                             {
+       printf(&quot;LPAR &quot;);
+       }
+&quot;}&quot;                             {
+       printf(&quot;RBR &quot;);
+       }
+&quot;{&quot;                             {
+       printf(&quot;LBR &quot;);
+       }
+&quot;;&quot;                             {
+       printf(&quot;SEMI &quot;);
+       }
+%%
+main() {
+  yylex();
+  printf(&quot;\n&quot;);
+  return 0;
+}
+		  </pre><br>
+		</li>
+		<li>
+		  flexを実行します．<br>
+		  <pre class="command">$ flex def.l</pre>
+		  lex.yy.c というファイルが生成されます．<br><br>
+		</li>
+		<li>
+		  生成されたlex.yy.cをコンパイルします．<br>
+		  <pre class="command">$ gcc lex.yy.c</pre>
+		  a.out というファイルが生成されます．<br>
+		  ※ 環境によっては a.exe というファイルが生成されるかもしれませんが，a.out と同じように扱うことができます．<br>
+		  【参考】<a href="http://ja.wikipedia.org/wiki/A.out%E3%83%95%E3%82%A9%E3%83%BC%E3%83%9E%E3%83%83%E3%83%88">a.outフォーマット（Wikipedia）</a><br><br>
+		</li>
+		<li>
+		  a.out を実行して，結果を出力してみます．<br>
+		  <pre class="command">$ ./a.out < hello.c
+IF LPAR IDENTIFIER OPERATOR IDENTIFIER RPAR LBR IDENTIFIER OPERATOR IDENTIFIER SEMI RBR</pre>
+		  正しく実行出来れば，上記の出力が得られるはずです．
+		</li>
+	      </ol>
+
+	    </div>
+
+	    <br>
+
+	    <div id="test_yaccbison">
+	      <!-- 環境テスト（yacc/bison） -->
+	      <h4>環境テスト（yacc/bison）</h4>
+	      <ol>
+		<li>
+		  下記の３つのファイルをダウンロードして，同じディレクトリに置いて下さい．<br>
+		  　解析対象：
+		  <a href="./src/if_input.c" target="_blank"><img src="./figs/ico_file2a_4.gif"> if_input.c</a><br>
+		  　lexプログラム：
+		  <a href="./src/if.l" target="_blank"><img src="./figs/ico_file2a_4.gif"> if.l</a><br>
+		  　yaccプログラム：
+		  <a href="./src/if.y" target="_blank"><img src="./figs/ico_file2a_4.gif"> if.y</a><br>
+		</li><br>
+		<li>
+		  lexのプログラムをコンパイルをします．<br>
+		  <pre class="command">$ flex -l if.l</pre>
+		  lex.yy.c というファイルが生成されます．<br><br>
+		</li>
+		<li>
+		  yaccのプログラムをコンパイルします．<br>
+		  下記の"yacc"は"bison"に置き換えることもできます．
+		  <pre class="command">$ yacc -dv -y if.y</pre>
+		  y.output，y.tab.c，y.tab.h という３つのファイルが生成されます．<br><br>
+		</li>
+		<li>
+		  lexとyaccを組み合わせてコンパイルします．<br>
+		  ＜Macの場合＞
+		  <pre class="command">$ gcc -m32 -w y.tab.c lex.yy.c</pre>
+		  ＜Windows / Linuxの場合＞
+		  <pre class="command">$ gcc -w y.tab.c lex.yy.c</pre>
+		  a.out または a.exe というファイルが生成されます．
+		</li><br>
+		<li>
+		  プログラムを実行して，結果を出力してみます．<br>
+		  <pre class="command">$ ./a.out &lt if_input.c
+
+      TERM1 -&gt a
+
+      EXPRESSION2 -&gt TERM1 &lt=&gt a
+
+      TERM3 -&gt b
+
+      EXPRESSION4 -&gt EXPRESSION2 &gt TERM3 &lt=&gt a&gtb
+
+      TERM5 -&gt c
+
+      EXPRESSION6 -&gt TERM5 &lt=&gt c
+
+      TERM7 -&gt d
+
+      EXPRESSION8 -&gt EXPRESSION6 = TERM7 &lt=&gt c=d
+
+      STATEMENT9 -&gt EXPRESSION8 &lt=&gt c=d;
+
+      STATEMENT_LIST10 -&gt STATEMENT9 &lt=&gt c=d;
+
+      BLOCK11 -&gt {STATEMENT_LIST10} &lt=&gt {c=d;}
+
+      IF_STATEMTNT -&gt IF (EXPRESSION4) BLOCK11 &lt=&gt if(a&gt;b){c=d;}</pre>
+		  正しく実行出来れば，上記の出力が得られるはずです．
+		</li>
+	      </ol>
+	    </div>
+	  </div>
+	</div>
+      </div>
+    </div>
+
+    <hr>
+    <footer>
+      <div class="container">
+	言語工学 2016 <br>
+	TA : <a href="http://yuelab82.net/">鷹取</a><br>
+	[<a href="http://www.ai.cs.kobe-u.ac.jp/">CS24 上原研究室</a>]
+      </div>
+    </footer>
+
+  </body>
+
+
+</html>
