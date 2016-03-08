@@ -1,0 +1,8 @@
+/* affix */
+.fix-sidebar.affix {
+    position: fixed;
+    top: 20px;
+}
+.fix-sidebar.affix-bottom {
+    position: absolute;
+}
