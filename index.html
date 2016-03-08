@@ -2,17 +2,75 @@
 <html lang="ja">
   <head>
     <meta charset="utf-8">
+    <meta name="description" content="神戸大学情報知能工学科 2015年前期 言語工学 講義ページ">
+    <meta name="author" content="Takatori">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap Sample</title>
-    <!-- BootstrapのCSS読み込み -->
+
+    <title>言語工学</title>
+
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <!-- jQuery読み込み -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <!-- BootstrapのJS読み込み -->
     <script src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="js/common.js"></script>
   </head>
+
   <body>
-    <h1>Hello, world!</h1>
+    <header>
+      <h1>言語工学 講義ページ　-2016年度-</h1>
+      神戸大学 情報知能工学科 3年生前期<br>
+      日時/場所 : 木曜2限/LR501<br>
+      担当教員 : <a href="http://www.ai.cs.kobe-u.ac.jp/faculty/uehara/uehara-j.html">上原 邦昭</a><br>
+    </header>
+
+    <div class="row">
+      <div class="col-md-3">
+	<ul class="nav nav-pills nav-stacked">
+	  <li>
+	    <a href="./tool.html">必要なツール</a>
+	  </li>
+	  <li class="dropdown">
+	    <a class="dropdown-toggle" data-toggle="dropdown" href="#">環境構築 <span class="caret"></span></a>
+	    <ul class="dropdown-menu">
+	      <li><a href="./env.html#config_linux">Linux（Ubuntu）</a></li>
+	      <li><a href="./env.html#config_mac">Mac</a></li>
+	      <li><a href="./env.html#config_win">Windows</a></li>
+	    </ul>
+	  </li>
+	  <li class="dropdown">
+	    <a class="dropdown-toggle" data-toggle="dropdown" href="#">環境テスト <span class="caret"></span></a>
+	    <ul class="dropdown-menu">
+	      <li><a href="./test1.html">環境テスト（lex）</a></li>
+	      <li><a href="./test2.html">環境テスト（yacc/bison）</a></li>
+	    </ul>
+	  </li>
+	  <li class="dropdown">
+	    <a class="dropdown-toggle" data-toggle="dropdown" href="#">レポート課題 <span class="caret"></span></a>
+	    <ul class="dropdown-menu">
+	      <li><a href="./submit.html">レポート提出要項</a></li>
+	      <li><a href="./report1.html">レポート課題1</a></li>
+	      <li><a href="./report2.html">レポート課題2</a></li>
+	    </ul>
+	  </li>
+	</ul>
+
+      </div>
+
+      <div class="col-md-9">
+	main
+      </div>
+
+    </div>
+
+    <footer>
+      言語工学 2016 <br>
+      TA : <a href="http://yuelab82.net/">鷹取</a><br>
+      [<a href="http://www.ai.cs.kobe-u.ac.jp/">CS24 上原研究室</a>]
+    </footer>
+
+
   </body>
+
+
 </html>
