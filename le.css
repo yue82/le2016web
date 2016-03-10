@@ -6,3 +6,7 @@
 .fix-sidebar.affix-bottom {
     position: absolute;
 }
+
+ul.nav li.dropdown:hover > ul.dropdown-menu {
+    display: block;
+}
