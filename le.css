@@ -1,0 +1,12 @@
+/* affix */
+.fix-sidebar.affix {
+    position: fixed;
+    top: 20px;
+}
+.fix-sidebar.affix-bottom {
+    position: absolute;
+}
+
+ul.nav li.dropdown:hover > ul.dropdown-menu {
+    display: block;
+}
