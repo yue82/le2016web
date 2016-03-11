@@ -16,7 +16,7 @@
 
 @border-radius-base:                6px;
 @border-radius-large:               8px;
-@border-radius-small:               4px;
+@border-radius-small:               2px;
 
 @list-group-bg:                     transparent;
 
@@ -928,7 +928,7 @@ legend {
   .input-group-addon-color(@color1b);
 
   &.color1 {.input-group-addon-color(@color1b)}
-  
+
 }
 
 //code
@@ -936,6 +936,7 @@ legend {
 code, pre {
     font-size:14px;
     text-shadow:none;
+    border-radius: @border-radius-small;
 
     .code-color(@color) {
         background:@color;
@@ -950,6 +951,16 @@ code, pre {
     &.color3 { .code-color(@color3b)}
     &.color4 { .code-color(@color4b)}
 }
+
+pre.code {
+    color: #000000;
+}
+
+pre.command {
+    background: dimgray;
+    color: white;
+}
+
 
 //labels and badges
 

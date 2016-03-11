@@ -90,7 +90,7 @@
 		<li>
 		  flexのプログラムを作成します．<br>
 		  下記の内容を書いたファイルを「def.l」という名前で保存してください．<br>
-		  ※%マークの前にスペースがあるとエラーが起きるようです．<br>
+		  ※%マークの前にスペースがあるとエラーが起きるようです．コピー時は注意してください．<br>
 		  <pre class="code" title="def.l">
 %option noyywrap
 %{
@@ -137,20 +137,20 @@ main() {
 		</li>
 		<li>
 		  flexを実行します．<br>
-		  <pre class="command">$ flex def.l</pre>
+		  <pre class="command">  $ flex def.l</pre>
 		  lex.yy.c というファイルが生成されます．<br><br>
 		</li>
 		<li>
 		  生成されたlex.yy.cをコンパイルします．<br>
-		  <pre class="command">$ gcc lex.yy.c</pre>
+		  <pre class="command">  $ gcc lex.yy.c</pre>
 		  a.out というファイルが生成されます．<br>
 		  ※ 環境によっては a.exe というファイルが生成されるかもしれませんが，a.out と同じように扱うことができます．<br>
-		  【参考】<a href="http://ja.wikipedia.org/wiki/A.out%E3%83%95%E3%82%A9%E3%83%BC%E3%83%9E%E3%83%83%E3%83%88">a.outフォーマット（Wikipedia）</a><br><br>
+		  [参考]<a href="http://ja.wikipedia.org/wiki/A.out%E3%83%95%E3%82%A9%E3%83%BC%E3%83%9E%E3%83%83%E3%83%88">a.outフォーマット（Wikipedia）</a><br><br>
 		</li>
 		<li>
 		  a.out を実行して，結果を出力してみます．<br>
-		  <pre class="command">$ ./a.out < hello.c
-IF LPAR IDENTIFIER OPERATOR IDENTIFIER RPAR LBR IDENTIFIER OPERATOR IDENTIFIER SEMI RBR</pre>
+		  <pre class="command">  $ ./a.out < hello.c
+    IF LPAR IDENTIFIER OPERATOR IDENTIFIER RPAR LBR IDENTIFIER OPERATOR IDENTIFIER SEMI RBR</pre>
 		  正しく実行出来れば，上記の出力が得られるはずです．
 		</li>
 	      </ol>
@@ -174,64 +174,64 @@ IF LPAR IDENTIFIER OPERATOR IDENTIFIER RPAR LBR IDENTIFIER OPERATOR IDENTIFIER S
 		</li><br>
 		<li>
 		  lexのプログラムをコンパイルをします．<br>
-		  <pre class="command">$ flex -l if.l</pre>
+		  <pre class="command">  $ flex -l if.l</pre>
 		  lex.yy.c というファイルが生成されます．<br><br>
 		</li>
 		<li>
 		  yaccのプログラムをコンパイルします．<br>
 		  下記の"yacc"は"bison"に置き換えることもできます．
-		  <pre class="command">$ yacc -dv -y if.y</pre>
+		  <pre class="command">  $ yacc -dv -y if.y</pre>
 		  y.output，y.tab.c，y.tab.h という３つのファイルが生成されます．<br><br>
 		</li>
 		<li>
 		  lexとyaccを組み合わせてコンパイルします．<br>
 		  ＜Macの場合＞
-		  <pre class="command">$ gcc -m32 -w y.tab.c lex.yy.c</pre>
+		  <pre class="command">  $ gcc -m32 -w y.tab.c lex.yy.c</pre>
 		  ＜Windows / Linuxの場合＞
-		  <pre class="command">$ gcc -w y.tab.c lex.yy.c</pre>
+		  <pre class="command">  $ gcc -w y.tab.c lex.yy.c</pre>
 		  a.out または a.exe というファイルが生成されます．
 		</li><br>
 		<li>
 		  プログラムを実行して，結果を出力してみます．<br>
-		  <pre class="command">$ ./a.out &lt if_input.c
+		  <pre class="command">  $ ./a.out &lt if_input.c
 
-      TERM1 -&gt a
+    TERM1 -&gt a
 
-      EXPRESSION2 -&gt TERM1 &lt=&gt a
+    EXPRESSION2 -&gt TERM1 &lt=&gt a
 
-      TERM3 -&gt b
+    TERM3 -&gt b
 
-      EXPRESSION4 -&gt EXPRESSION2 &gt TERM3 &lt=&gt a&gtb
+    EXPRESSION4 -&gt EXPRESSION2 &gt TERM3 &lt=&gt a&gtb
 
-      TERM5 -&gt c
+    TERM5 -&gt c
 
-      EXPRESSION6 -&gt TERM5 &lt=&gt c
+    EXPRESSION6 -&gt TERM5 &lt=&gt c
 
-      TERM7 -&gt d
+    TERM7 -&gt d
 
-      EXPRESSION8 -&gt EXPRESSION6 = TERM7 &lt=&gt c=d
+    EXPRESSION8 -&gt EXPRESSION6 = TERM7 &lt=&gt c=d
 
-      STATEMENT9 -&gt EXPRESSION8 &lt=&gt c=d;
+    STATEMENT9 -&gt EXPRESSION8 &lt=&gt c=d;
 
-      STATEMENT_LIST10 -&gt STATEMENT9 &lt=&gt c=d;
+    STATEMENT_LIST10 -&gt STATEMENT9 &lt=&gt c=d;
 
-      BLOCK11 -&gt {STATEMENT_LIST10} &lt=&gt {c=d;}
+    BLOCK11 -&gt {STATEMENT_LIST10} &lt=&gt {c=d;}
 
-      IF_STATEMTNT -&gt IF (EXPRESSION4) BLOCK11 &lt=&gt if(a&gt;b){c=d;}</pre>
+    IF_STATEMTNT -&gt IF (EXPRESSION4) BLOCK11 &lt=&gt if(a&gt;b){c=d;}</pre>
 		  正しく実行出来れば，上記の出力が得られるはずです．
 		</li>
-	      </ol>
+	    </ol>
 	    </div>
 	  </div>
 	</div>
-      </div>
+    </div>
     </div>
 
     <hr>
     <footer>
-      <div class="container">
+    <div class="container">
 	<a href="./index.html">言語工学 2016<a><br>
-      </div>
+    </div>
     </footer>
 
   </body>
