@@ -50,7 +50,7 @@
 		    <ul class="dropdown-menu pull-right">
 		      <li><a href="./env.html#config_linux">Linux（Ubuntu）</a></li>
 		      <li><a href="./env.html#config_mac">Mac</a></li>
-		      <li><a href="./env.html#config_win">Windows</a></li>
+5B		      <li><a href="./env.html#config_win">Windows</a></li>
 		    </ul>
 		  </li>
 		  <li class="dropdown">
@@ -74,35 +74,53 @@
 	    <h3>準備</h3>
 	    以下のファイルをダウンロードしてください．
 	    <ul>
-	      <li><a href="./src/def2.l" target="_blank"><img src="./figs/ico_file2a_4.gif"> def2.l</a><br>
-		flexプログラムdef2.lは，<a href="">環境テスト(lex)</a>で使用したflexプログラムdef.lに機能を追加したものです．
+	      <li><a href="./src/def1.l" target="_blank"><img src="./figs/ico_file2a_4.gif"> def1.l</a><br>
+		flexプログラムdef1.lは，<a href="">環境テスト(lex)</a>で使用したflexプログラムdef.lに機能を追加したものです．
 		"%%"で囲まれた部分に字句解析系のルールが記述されています．</li>
 	      <li><a href="./src/test1.c" target="_blank"><img src="./figs/ico_file2a_4.gif"> test1.c</a><br>
-		テスト用プログラムtest1.cは，def2.lによる字句解析機能の一部を確認するプログラムです．</li>
+		テスト用プログラムtest1.cは，def1.lによる字句解析機能の一部を確認するプログラムです．</li>
 	    </ul>
-	    flexプログラムにテスト用プログラムを入力した際の動作は，環境テスト(lex)と同様に，以下のような手順で確認することができます．
+
+	    flexプログラムにテスト用プログラムを入力した際の動作は，環境テスト(lex)と同様に，以下のような手順で確認することができます．ただし設問のため，warningが発生する可能性があります．(実行はできると思います．)
 	    <pre class="command">
-  $ flex def2.l
+  $ flex def1.l
   $ gcc lex.yy.c
   $ ./a.out < test1.c
-    IF LEFT_PARENTHESIS IDENTIFIER OPERATOR IDENTIFIER RIGHT_PARENTHESIS LEFT_BRACE TYPENAME IDENTIFIER OPERATOR INTEGER SEMICOLON IDENTIFIER OPERATOR IDENTIFIER SEMICOLON RIGHT_BRACE</pre>
+    IF LEFT_PARENTHESIS IDENTIFIER OPERATOR IDENTIFIER RIGHT_PARENTHESIS LEFT_BRACE IDENTIFIER IDENTIFIER SEMICOLON IDENTIFIER _IDENTIFIER INTEGER OPERATOR INTEGER SEMICOLON IDENTIFIER OPERATOR _IDENTIFIER INTEGER SEMICOLON RIGHT_BRACE</pre>
+
+	    また，テスト用プログラムをファイルとして用意せず，以下の様にコマンドライン上のみで入力を試みることもできます．
+	    <pre class="command">
+  $ echo "-123 test" | ./a.out
+  INTEGER IDENTIFIER</pre>
+
+	    <h3>設問における注意</h3>
+	    <ul>
+	      <li>テスト用プログラムは，プログラムとして動作できる必要はありませんが，C言語の仕様を想定して取り組んでみてください．</li>
+	      <li>C言語の仕様上の，文字数の制限や桁の制限などについては考慮する必要はありません．</li>
+	      <li><a href="./submit.html">レポート提出要項</a>のページをよく参照してレポートを作成してください．
+	    </ul>
 
 	    <h3>問1</h3>
-	    def2.lによる全ての字句解析機能が正しく動作していることを確認できるようなテスト用プログラムをtest1.cに追加してください．
-	    また，書いたテスト用プログラムを入力として，def2.lによる字句解析にかけた出力を示してください．
-	    <br>
-	    <dl>
-	      <dt>※注意</dt>
-	      <dd>
-		<ul>
-		  <li>テスト用プログラムは，プログラムとして動作できる必要はありません．</li>
-		  <li>整数や識別子などについてはいくつかの例を作成し，解析系が様々な入力に対応していることを確認してください．</li>
-		</ul>
-	      </dd>
-	    </dl>
+	    def1.lにはいくつか誤りが存在するため，test1.cを入力した際の出力が意図したものと異なっています．
+	    意図する出力は以下のようなものです．
+	    <pre class="command">
+  $ ./a.out < test1.c
+    IF LEFT_PARENTHESIS IDENTIFIER OPERATOR IDENTIFIER RIGHT_PARENTHESIS LEFT_BRACE TYPENAME IDENTIFIER SEMICOLON TYPENAME IDENTIFIER OPERATOR INTEGER SEMICOLON IDENTIFIER OPERATOR IDENTIFIER SEMICOLON RIGHT_BRACE</pre>
+	    以下の点に着目してdef1.lを修正し，出力が意図した出力と一致するようにしてください．
+	    <ul>
+	      <li>"int"がIDENTIFIER(識別子)として判別されてしまっている</li>
+	      <li>"_Var1"に含まれる"_"や"1"が，識別子の一部として認識されていない</li>
+	    </ul>
+	    なお，識別子の判別規則については，C言語の文法規則を調べて仕様を満たすようにしてください．
 
 	    <h3>問2</h3>
-	    del2.lの字句解析プログラムに，以下の予約語トークンを判別する機能を追加してください．(表記：トークン / 出力する文字列)
+	    def1.lによる字句解析機能が，問1で修正を加えた部分を含めて全て正しく動作していることを確認できるようなテスト用プログラムをtest1.cに追加してください．
+	    整数や識別子などのトークンに対しては，解析系が様々な入力に対応していることを確認できるような入力をいくつか例示してください．<br>
+	    また，書いたテスト用プログラムを入力として，def1.lによる字句解析にかけた出力を示してください．
+
+	    <h3>問3</h3>
+	    del2.lの字句解析プログラムに，以下の予約語トークンを判別する機能を追加してください．<br>
+	    (表記：トークン / 出力する文字列)
 	    <ul>
 	      <li>while / WHILE</li>
 	      <li>do / DO</li>
@@ -111,16 +129,19 @@
 	      <li>continue / CONTINUE</li>
 	    </ul>
 	    追加した機能を正しく動作していることを確認できるようなテスト用プログラムをtest1.cに追加してください．
-	    また，書いたテスト用プログラムを入力として，def2.lによる字句解析にかけた出力を示してください．
+	    また，書いたテスト用プログラムを入力として，def1.lによる字句解析にかけた出力を示してください．
 
-	    <h3>問3</h3>
-	    問2で作成したプログラムに，さらに以下のトークンを追加してください．(表記：トークン / 出力する文字列)
+	    <h3>問4</h3>
+	    問3で作成したプログラムに，さらに以下のトークン判別する機能を追加してください．<br>
+	    (表記：トークン / 出力する文字列)
 	    <ul>
 	      <li>2進数 / BINARY</li>
 	      <li>16進数 / HEXADECIMAL</li>
 	      <li>8進数 / BINARY</li>
 	      <li>浮動小数点数 / REAL</li>
 	    </ul>
+	    追加した機能を正しく動作していることを確認できるようなテスト用プログラムをtest1.cに追加してください．
+	    また，書いたテスト用プログラムを入力として，def1.lによる字句解析にかけた出力を示してください．
 	    <dl>
 	      <dt>※注意</dt>
 	      <dd>
@@ -132,8 +153,6 @@
 		</ul>
 	      </dd>
 	    </dl>
-	    追加した機能を正しく動作していることを確認できるようなテスト用プログラムをtest1.cに追加してください．
-	    また，書いたテスト用プログラムを入力として，def2.lによる字句解析にかけた出力を示してください．
 
 	  </div>
 	</div>

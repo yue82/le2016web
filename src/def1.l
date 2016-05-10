@@ -8,20 +8,20 @@
 [ \t\n]+ {
 }
 
+"if" {
+  printf("IF ");
+}
+
+[a-zA-Z]+ {
+  printf("IDENTIFIER ");
+}
+
 "int" {
   printf("TYPENAME ");
 }
 
 "double" {
   printf("TYPENAME ");
-}
-
-"if" {
-  printf("IF ");
-}
-
-[a-zA-X_][a-zA-Z0-9]* {
-  printf("IDENTIFIER ");
 }
 
 0|([+-]?[1-9][0-9]*) {
