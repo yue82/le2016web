@@ -2,16 +2,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-int copy(const char *arg1,const char *arg2,const char *arg3,const  char *arg4, const char *arg5, const char *arg6, const char *arg7);
-const char *getptr(int index);
+  int copy(const char *arg1,const char *arg2,const char *arg3,const  char *arg4, const char *arg5, const char *arg6, const char *arg7);
+  const char *getptr(int index);
 
-%}
+  %}
 
 %token IF INT DOUBLE IDENTIFIER INTEGER REAL ADD SUB ASSIGN EQUAL
 LEFT_PARENTHESIS RIGHT_PARENTHESIS LEFT_BRACE RIGHT_BRACE SEMICOLON COMMA
 %%
 
-/*PROGRAM*/
+ /*PROGRAM*/
 PROGRAM
 : STATEMENT_LIST
 {
@@ -170,56 +170,56 @@ static int counter = 0;
 
 /*
   stack function
- */
+*/
 int copy(const char *arg1,const char *arg2,const char *arg3,const  char *arg4, const char *arg5, const char *arg6, const char *arg7)
 {
   Address[counter++] = Pointer;
   sprintf(Pointer,"%s",arg1);
   Pointer += strlen(arg1);
   if(arg2 != NULL)
-  {
-    sprintf(Pointer,"%s",arg2);
-    Pointer += strlen(arg2);
-  }
+    {
+      sprintf(Pointer,"%s",arg2);
+      Pointer += strlen(arg2);
+    }
   if(arg3 != NULL)
-  {
-    sprintf(Pointer,"%s",arg3);
-    Pointer += strlen(arg3);
-  }
+    {
+      sprintf(Pointer,"%s",arg3);
+      Pointer += strlen(arg3);
+    }
   if(arg4 != NULL)
-  {
-    sprintf(Pointer,"%s",arg4);
-    Pointer += strlen(arg4);
-  }
+    {
+      sprintf(Pointer,"%s",arg4);
+      Pointer += strlen(arg4);
+    }
   if(arg5 != NULL)
-  {
-    sprintf(Pointer,"%s",arg5);
-    Pointer += strlen(arg5);
-  }
+    {
+      sprintf(Pointer,"%s",arg5);
+      Pointer += strlen(arg5);
+    }
   if(arg6 != NULL)
-  {
-    sprintf(Pointer,"%s",arg6);
-    Pointer += strlen(arg6);
-  }
+    {
+      sprintf(Pointer,"%s",arg6);
+      Pointer += strlen(arg6);
+    }
   if(arg7 != NULL)
-  {
-    sprintf(Pointer,"%s",arg7);
-    Pointer += strlen(arg7);
-  }
+    {
+      sprintf(Pointer,"%s",arg7);
+      Pointer += strlen(arg7);
+    }
   *Pointer++ = '\0';
   return counter;
 }
 
 /*
   local get pointer function
- */
+*/
 const char *getptr(int index){
   return Address[index-1];
 }
 
 /*
   error function
- */
+*/
 int yyerror(char const *str){
   extern char *yytext;
   fprintf(stderr,"parser error near %s\n",yytext);
@@ -228,7 +228,7 @@ int yyerror(char const *str){
 
 /*
   main function
- */
+*/
 int main(void){
 
   extern int yyparse(void);
