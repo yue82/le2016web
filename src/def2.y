@@ -7,7 +7,8 @@
 
   %}
 
-%token IF INT DOUBLE IDENTIFIER INTEGER REAL ADD SUB ASSIGN EQUAL
+%token
+IF INT DOUBLE IDENTIFIER INTEGER REAL ADD SUB ASSIGN EQUAL
 LEFT_PARENTHESIS RIGHT_PARENTHESIS LEFT_BRACE RIGHT_BRACE SEMICOLON COMMA
 %%
 
@@ -25,7 +26,7 @@ STATEMENT_LIST
 : STATEMENT_LIST STATEMENT
 {
   $$ = copy(getptr($1), getptr($2), NULL, NULL, NULL, NULL, NULL);
-  printf("\n STATEMENT_LIST%d -> STATEMENT_LIST%d STATEMENT%d <=> %s %s\n", $$, $1, $2, getptr($1), getptr($2));
+  printf("\n STATEMENT_LIST%d -> STATEMENT_LIST%d STATEMENT%d <=> %s\n", $$, $1, $2, getptr($$));
 }
 |
 {
@@ -38,7 +39,7 @@ STATEMENT
 : EXPRESSION SEMICOLON
 {
   $$ = copy(getptr($1), ";", NULL, NULL, NULL, NULL, NULL);
-  printf("\n STATEMENT%d -> EXPRESSION%d <=> %s\n", $$, $1, getptr($$));
+  printf("\n STATEMENT%d -> EXPRESSION%d; <=> %s\n", $$, $1, getptr($$));
 }
 | TYPENAME VARIABLE_LIST SEMICOLON
 {
@@ -56,7 +57,7 @@ IF_STATEMENT
 : IF LEFT_PARENTHESIS EXPRESSION RIGHT_PARENTHESIS BLOCK
 {
   $$ = copy("if", "(", getptr($3), ")", getptr($5), NULL, NULL);
-  printf("\n IF_STATEMTNT%d -> IF (EXPRESSION%d) BLOCK%d <=> if(%s)%s\n", $$, $3,$5, getptr($3), getptr($5));
+  printf("\n IF_STATEMTNT%d -> IF (EXPRESSION%d) BLOCK%d <=> %s\n", $$, $3, $5, getptr($$));
 }
 
 /*BLOCK*/
@@ -107,13 +108,13 @@ EXPRESSION
 TYPENAME
 : INT
 {
-  $$ = copy((char *)$1, NULL, NULL, NULL, NULL, NULL, NULL);
-  printf("\n TYPENAME%d -> INT <=> int\n", $$);
+  $$ = copy("int", NULL, NULL, NULL, NULL, NULL, NULL);
+  printf("\n TYPENAME%d -> INT <=> %s\n", $$, getptr($$));
 }
 | DOUBLE
 {
   $$ = copy("double", NULL, NULL, NULL, NULL, NULL, NULL);
-  printf("\n TYPENAME%d -> DOUBLE <=> double\n", $$);
+  printf("\n TYPENAME%d -> DOUBLE <=> %s\n", $$, getptr($$));
 }
 
 /*OPERATOR*/
@@ -121,22 +122,22 @@ OPERATOR
 : ADD
 {
   $$ = copy("+", NULL, NULL, NULL, NULL, NULL, NULL);
-  printf("\n OPERATOR%d -> ADD <=> +\n", $$);
+  printf("\n OPERATOR%d -> ADD <=> %s\n", $$, getptr($$));
 }
 | SUB
 {
   $$ = copy("-", NULL, NULL, NULL, NULL, NULL, NULL);
-  printf("\n OPERATOR%d -> SUB <=> -\n", $$);
+  printf("\n OPERATOR%d -> SUB <=> %s\n", $$, getptr($$));
 }
 | ASSIGN
 {
   $$ = copy("=", NULL, NULL, NULL, NULL, NULL, NULL);
-  printf("\n OPERATOR%d -> ASSIGN <=> =\n", $$);
+  printf("\n OPERATOR%d -> ASSIGN <=> %s\n", $$, getptr($$));
 }
 | EQUAL
 {
   $$ = copy("==", NULL, NULL, NULL, NULL, NULL, NULL);
-  printf("\n OPERATOR%d -> EQUAL <=> ==\n", $$);
+  printf("\n OPERATOR%d -> EQUAL <=> %s\n", $$, getptr($$));
 }
 
 
