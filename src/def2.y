@@ -44,7 +44,7 @@ STATEMENT
 | TYPENAME VARIABLE_LIST SEMICOLON
 {
   $$ = copy(getptr($1), getptr($2), ";", NULL, NULL, NULL, NULL);
-  printf("\n STATEMENT%d -> TYPENAME VARIABLE_LIST%d; <=> %s\n", $$, $2, getptr($$));
+  printf("\n STATEMENT%d -> TYPENAME%d VARIABLE_LIST%d; <=> %s\n", $$, $1, $2, getptr($$));
 }
 | IF_STATEMENT
 {
