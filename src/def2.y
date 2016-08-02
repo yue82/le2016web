@@ -57,7 +57,7 @@ IF_STATEMENT
 : IF LEFT_PARENTHESIS EXPRESSION RIGHT_PARENTHESIS BLOCK
 {
   $$ = copy("if", "(", getptr($3), ")", getptr($5), NULL, NULL);
-  printf("\n IF_STATEMTNT%d -> IF (EXPRESSION%d) BLOCK%d <=> %s\n", $$, $3, $5, getptr($$));
+  printf("\n IF_STATEMENT%d -> IF (EXPRESSION%d) BLOCK%d <=> %s\n", $$, $3, $5, getptr($$));
 }
 
 /*BLOCK*/
